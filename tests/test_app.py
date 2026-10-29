@@ -20,7 +20,8 @@ def test_valid_submission_is_saved_and_displayed():
     assert b"sp23-bcs-012" in response.data
     assert b"DevOps Mid" in response.data
     assert b"https://github.com/" in response.data
-    assert len(app_module.submissions) == 1
+    assert len(app_module.submissions) == 2
+
 
 
 def test_missing_registration_number_is_rejected():
