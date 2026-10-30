@@ -37,6 +37,16 @@ jobs:
           REPORT_TOKEN: ${{ secrets.REPORT_TOKEN }}
         run: python send_report.py
 
+
+      - name: Email test report
+        if: always() && steps.tests.outcome != 'skipped'
+        continue-on-error: true
+        env:
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        run: python send_email.py
+
   deploy:
     needs: test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
